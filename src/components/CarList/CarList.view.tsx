@@ -1,16 +1,6 @@
-import React from 'react';
-import { Box, Typography, Grid, TextField, FormControl, InputLabel, Select, MenuItem, Button, CircularProgress, Card, CardContent } from "@mui/material";
+import type { CarListViewProps } from "./carList.types";
+import { Box, Typography, Grid, TextField, Button, FormControl, InputLabel, Select, MenuItem, Card, CardContent, CircularProgress } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-
-interface CarListViewProps {
-  cars: any[];
-  loading: boolean;
-  error: any;
-  search: string;
-  sort: string;
-  onSearchChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onSortChange: (e: any) => void;
-}
 
 export const CarListView = ({ 
   cars, 
@@ -32,13 +22,13 @@ export const CarListView = ({
 
   return (
     <Box>
-      <Box className="container">
+      <Box className="container" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>
         <Typography variant="h4" fontWeight={700} gutterBottom sx={{ mb: 4 , pl: '2rem', pt: '1rem' }}>
           Welcome to Car Fleet!
         </Typography>
 
-        <Grid container spacing={2} sx={{ mb: 4, alignItems: 'center', pl: '2rem' }}>
-          <Grid item xs={2} sm={3} component="div">
+        <Grid container spacing={2} sx={{ mb: 4, alignItems: 'center', justifyContent: 'center' }}>
+          <Grid item xs={2} sm={3} component="div" sx={{ display: 'flex', justifyContent: 'center' }}>
             <TextField
               fullWidth
               label="Search by Model"
@@ -47,7 +37,7 @@ export const CarListView = ({
               sx={{ backgroundColor: 'white', borderRadius: 1 }}
             />
           </Grid>
-          <Grid item xs={2} sm={2} component="div">
+          <Grid item xs={2} sm={2} component="div" sx={{ display: 'flex', justifyContent: 'center' }}>
             <FormControl fullWidth>
               <InputLabel id="sort-by-label">Sort By</InputLabel>
               <Select
@@ -76,9 +66,9 @@ export const CarListView = ({
           </Grid>
         </Grid>
 
-        <Grid container spacing={2} className="grid-container">
+        <Grid container spacing={2} className="grid-container" sx={{ justifyContent: 'center' }}>
           {cars.map((car) => (
-            <Grid item xs={12} sm={6} md={4} key={car.id} component="div">
+            <Grid item xs={12} sm={6} md={3} key={car.id} component="div">
               <Card className="card">
                 <Box className="image-box">
                   <picture style={{ width: "100%", height: "100%" }}>

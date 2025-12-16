@@ -1,7 +1,9 @@
+
 import { Grid, TextField, Button, Box, Typography, Paper, Snackbar, Alert } from "@mui/material";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import React, { useState } from "react";
+import type { AddCarFormViewProps } from "./addCarForm.types";
 
 const validationSchema = yup.object({
   make: yup.string().required("Make is required"),
@@ -17,152 +19,69 @@ const validationSchema = yup.object({
     .required("Image URL is required"),
 });
 
-interface AddCarFormViewProps {
-  onAddCar: (values: { make: string; model: string; year: string; color: string; image: string }) => void;
-  onSubmit?: (values: { make: string; model: string; year: string; color: string; image: string }) => void;
-  formData: {
-    make: string;
-    model: string;
-    year: string;
-    color: string;
-    image: string;
-  };
-  onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
 
-export const AddCarFormView: React.FC<AddCarFormViewProps> = ({ onAddCar, onSubmit, formData, onInputChange }) => {
+export const AddCarFormView: React.FC<AddCarFormViewProps> = ({ onAddCar }) => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const formik = useFormik({
-    initialValues: formData,
+    initialValues: {
+      make: "",
+      model: "",
+      year: "",
+      color: "",
+      image: "",
+    },
     validationSchema,
     onSubmit: (values) => {
+      onAddCar(values);
       setOpenSnackbar(true);
-      if (onSubmit) {
-        onSubmit(values);
-      } else {
-        onAddCar(values);
-      }
     },
   });
 
   return (
     <>
-      <Box
-        sx={{
-          maxWidth: 600,
-          mx: "auto",
-          mt: 2,
-          px: 2,
-        }}
-      >
-        <Paper
-          elevation={2}
-          sx={{
-            p: 4,
-            borderRadius: 3,
-          }}
-        >
+      <Box sx={{ maxWidth: 600, mx: "auto", mt: 2, px: 2 }}>
+        <Paper elevation={2} sx={{ p: 4, borderRadius: 3 }}>
           <Typography variant="h4" fontWeight={700} gutterBottom align="center">
             Register a New Car
           </Typography>
 
-          <Typography
-            variant="body1"
-            color="text.secondary"
-            align="center"
-            mb={4}
-          >
+          <Typography variant="body1" color="text.secondary" align="center" mb={4}>
             Fill in the details below
           </Typography>
 
           <form onSubmit={formik.handleSubmit} noValidate>
             <Grid container spacing={3}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  label="Make"
-                  name="make"
-                  value={formData.make}
-                  onChange={(e) => {
-                    formik.handleChange(e);
-                    onInputChange(e as React.ChangeEvent<HTMLInputElement>);
-                  }}
-                  onBlur={formik.handleBlur}
-                  error={formik.touched.make && Boolean(formik.errors.make)}
-                  helperText={formik.touched.make && formik.errors.make}
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  label="Model"
-                  name="model"
-                  value={formData.model}
-                  onChange={(e) => {
-                    formik.handleChange(e);
-                    onInputChange(e as React.ChangeEvent<HTMLInputElement>);
-                  }}
-                  onBlur={formik.handleBlur}
-                  error={formik.touched.model && Boolean(formik.errors.model)}
-                  helperText={formik.touched.model && formik.errors.model}
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  label="Year"
-                  name="year"
-                  placeholder="2023"
-                  value={formData.year}
-                  onChange={(e) => {
-                    formik.handleChange(e);
-                    onInputChange(e as React.ChangeEvent<HTMLInputElement>);
-                  }}
-                  onBlur={formik.handleBlur}
-                  error={formik.touched.year && Boolean(formik.errors.year)}
-                  helperText={formik.touched.year && formik.errors.year}
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  label="Color"
-                  name="color"
-                  value={formData.color}
-                  onChange={(e) => {
-                    formik.handleChange(e);
-                    onInputChange(e as React.ChangeEvent<HTMLInputElement>);
-                  }}
-                  onBlur={formik.handleBlur}
-                  error={formik.touched.color && Boolean(formik.errors.color)}
-                  helperText={formik.touched.color && formik.errors.color}
-                  fullWidth
-                />
-              </Grid>
+              {[
+                { name: "make", label: "Make" },
+                { name: "model", label: "Model" },
+                { name: "year", label: "Year", placeholder: "2023" },
+                { name: "color", label: "Color" },
+                { name: "image", label: "Image URL" },
+              ].map(({ name, label, placeholder }) => (
+                <Grid item xs={12} sm={name === "image" ? 12 : 6} key={name}>
+                  <TextField
+                    fullWidth
+                    label={label}
+                    name={name}
+                    placeholder={placeholder}
+                    value={formik.values[name as keyof typeof formik.values]}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={
+                      formik.touched[name as keyof typeof formik.touched] &&
+                      Boolean(formik.errors[name as keyof typeof formik.errors])
+                    }
+                    helperText={
+                      formik.touched[name as keyof typeof formik.touched] &&
+                      formik.errors[name as keyof typeof formik.errors]
+                    }
+                  />
+                </Grid>
+              ))}
+
               <Grid item xs={12}>
-                <TextField
-                  label="Image URL"
-                  name="image"
-                  placeholder="https://example.com/car.jpg"
-                  value={formData.image}
-                  onChange={(e) => {
-                    formik.handleChange(e);
-                    onInputChange(e as React.ChangeEvent<HTMLInputElement>);
-                  }}
-                  onBlur={formik.handleBlur}
-                  error={formik.touched.image && Boolean(formik.errors.image)}
-                  helperText={formik.touched.image && formik.errors.image}
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  size="large"
-                  fullWidth
-                  sx={{ mt: 2 }}
-                >
+                <Button type="submit" variant="contained" size="large" fullWidth sx={{ mt: 2 }}>
                   Add Car
                 </Button>
               </Grid>
@@ -177,9 +96,7 @@ export const AddCarFormView: React.FC<AddCarFormViewProps> = ({ onAddCar, onSubm
         onClose={() => setOpenSnackbar(false)}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
-        <Alert onClose={() => setOpenSnackbar(false)} severity="success" sx={{ width: "100%" }}>
-          Form submitted successfully!
-        </Alert>
+        <Alert severity="success">Form submitted successfully!</Alert>
       </Snackbar>
     </>
   );

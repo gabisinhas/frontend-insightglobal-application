@@ -1,11 +1,8 @@
+
+import type { AddCarFormContainerProps } from "./addCarForm.types";
+import { Alert } from "@mui/material";
 import { useState } from "react";
 import { AddCarFormView } from "./AddCarForm.view";
-import { Alert } from "@mui/material";
-
-interface AddCarFormContainerProps {
-  onAddCar: (car: any) => void;
-}
-
 export const AddCarForm = ({ onAddCar }: AddCarFormContainerProps) => {
   const [formData, setFormData] = useState({
     make: "",
