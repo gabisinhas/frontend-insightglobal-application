@@ -35,6 +35,7 @@ export default function App() {
                 path="/add-car"
                 element={<AddCarForm onAddCar={() => {}} />}
               />
+              <Route path="*" element={<CarList />} />
             </Routes>
           </Box>
           <Footer />
