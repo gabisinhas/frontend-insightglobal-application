@@ -28,7 +28,7 @@ body {
 .h1 {
   font-weight: 600;
   letter-spacing: -0.02em;
-  color: #0f172a;
+  color: #0f48cd;
 }
 
 .logo {
@@ -101,13 +101,13 @@ body {
 @media (max-width: 1024px) {
   .grid-container {
     grid-template-columns: repeat(2, 1fr);
-  }
     justify-content: center;
+  }
 }
 
 @media (max-width: 640px) {
   .grid-container {
     grid-template-columns: 1fr;
-  }
     justify-content: center;
+  }
 }

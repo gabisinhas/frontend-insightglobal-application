@@ -23,7 +23,7 @@ export const CarListView = ({
   return (
     <Box>
       <Box className="container" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>
-        <Typography variant="h4" fontWeight={700} gutterBottom sx={{ mb: 4 , pl: '2rem', pt: '1rem' }}>
+        <Typography variant="h4" fontWeight={700} gutterBottom align="center" sx={{ mb: 4, pl: '2rem', pt: '1rem', color: 'primary.main' }}>
           Welcome to Car Fleet!
         </Typography>
 

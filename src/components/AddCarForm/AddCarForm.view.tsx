@@ -1,4 +1,3 @@
-
 import { Grid, TextField, Button, Box, Typography, Paper, Snackbar, Alert } from "@mui/material";
 import * as yup from "yup";
 import { useFormik } from "formik";
@@ -42,7 +41,7 @@ export const AddCarFormView: React.FC<AddCarFormViewProps> = ({ onAddCar }) => {
     <>
       <Box sx={{ maxWidth: 600, mx: "auto", mt: 2, px: 2 }}>
         <Paper elevation={2} sx={{ p: 4, borderRadius: 3 }}>
-          <Typography variant="h4" fontWeight={700} gutterBottom align="center">
+          <Typography variant="h4" fontWeight={700} gutterBottom align="center" sx={{ mb: 4, pl: '2rem', pt: '1rem', color: 'primary.main' }}>
             Register a New Car
           </Typography>
 
