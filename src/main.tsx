@@ -3,10 +3,11 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import App from "./App";
 import { makeServer } from "./mocks/server";
 import "./App.css";
+import { BrowserRouter } from "react-router-dom";
 
 
 const client = new ApolloClient({
-  uri: "/graphql", // endpoint GraphQL do MirageJS
+  uri: "/graphql", 
   cache: new InMemoryCache(),
 });
 
@@ -18,6 +19,8 @@ ReactDOM.createRoot(
   document.getElementById("root")!
 ).render(
   <ApolloProvider client={client}>
-    <App />
+    <BrowserRouter basename="/frontend-insightglobal-application">
+      <App />
+    </BrowserRouter>
   </ApolloProvider>
 );
