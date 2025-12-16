@@ -1,26 +1,23 @@
 import ReactDOM from "react-dom/client";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import App from "./App";
-import { worker } from "./mocks/browser";
+import { makeServer } from "./mocks/server";
 import "./App.css";
 
+
 const client = new ApolloClient({
-  uri: "http://localhost:4000/graphql",
+  uri: "/graphql", // endpoint GraphQL do MirageJS
   cache: new InMemoryCache(),
 });
 
-async function start() {
-  await worker.start({
-    onUnhandledRequest: 'bypass', 
-  });
-
-  ReactDOM.createRoot(
-    document.getElementById("root")!
-  ).render(
-    <ApolloProvider client={client}>
-      <App />
-    </ApolloProvider>
-  );
+if (process.env.NODE_ENV === "development") {
+  makeServer();
 }
 
-start();
+ReactDOM.createRoot(
+  document.getElementById("root")!
+).render(
+  <ApolloProvider client={client}>
+    <App />
+  </ApolloProvider>
+);

@@ -19,23 +19,25 @@ const validationSchema = yup.object({
 
 interface AddCarFormViewProps {
   onAddCar: (values: { make: string; model: string; year: string; color: string; image: string }) => void;
-  onSubmit?: (values: { make: string; model: string; year: string; color: string; image: string }) => void; // Adjust type to accept form values
+  onSubmit?: (values: { make: string; model: string; year: string; color: string; image: string }) => void;
+  formData: {
+    make: string;
+    model: string;
+    year: string;
+    color: string;
+    image: string;
+  };
+  onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const AddCarFormView: React.FC<AddCarFormViewProps> = ({ onAddCar, onSubmit }) => {
+export const AddCarFormView: React.FC<AddCarFormViewProps> = ({ onAddCar, onSubmit, formData, onInputChange }) => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const formik = useFormik({
-    initialValues: {
-      make: "",
-      model: "",
-      year: "",
-      color: "",
-      image: "",
-    },
+    initialValues: formData,
     validationSchema,
     onSubmit: (values) => {
-      setOpenSnackbar(true); // Abre o Snackbar ao submeter o formulário
+      setOpenSnackbar(true);
       if (onSubmit) {
         onSubmit(values);
       } else {
@@ -48,9 +50,9 @@ export const AddCarFormView: React.FC<AddCarFormViewProps> = ({ onAddCar, onSubm
     <>
       <Box
         sx={{
-          maxWidth: 800,
+          maxWidth: 600,
           mx: "auto",
-          mt: 10,
+          mt: 2,
           px: 2,
         }}
       >
@@ -75,111 +77,85 @@ export const AddCarFormView: React.FC<AddCarFormViewProps> = ({ onAddCar, onSubm
           </Typography>
 
           <form onSubmit={formik.handleSubmit} noValidate>
-            <Grid
-              container
-              spacing={2}
-              sx={{
-                flexGrow: 1,
-              }}
-            >
-              <Grid
-                component="div"
-                sx={{
-                  flexGrow: 1,
-                }}
-              >
+            <Grid container spacing={3}>
+              <Grid item xs={12} sm={6}>
                 <TextField
                   label="Make"
                   name="make"
-                  value={formik.values.make}
-                  onChange={formik.handleChange}
+                  value={formData.make}
+                  onChange={(e) => {
+                    formik.handleChange(e);
+                    onInputChange(e as React.ChangeEvent<HTMLInputElement>);
+                  }}
                   onBlur={formik.handleBlur}
                   error={formik.touched.make && Boolean(formik.errors.make)}
                   helperText={formik.touched.make && formik.errors.make}
                   fullWidth
                 />
               </Grid>
-
-              <Grid
-                component="div"
-                sx={{
-                  flexGrow: 1,
-                }}
-              >
+              <Grid item xs={12} sm={6}>
                 <TextField
                   label="Model"
                   name="model"
-                  value={formik.values.model}
-                  onChange={formik.handleChange}
+                  value={formData.model}
+                  onChange={(e) => {
+                    formik.handleChange(e);
+                    onInputChange(e as React.ChangeEvent<HTMLInputElement>);
+                  }}
                   onBlur={formik.handleBlur}
                   error={formik.touched.model && Boolean(formik.errors.model)}
                   helperText={formik.touched.model && formik.errors.model}
                   fullWidth
                 />
               </Grid>
-
-              <Grid
-                component="div"
-                sx={{
-                  flexGrow: 1,
-                }}
-              >
+              <Grid item xs={12} sm={6}>
                 <TextField
                   label="Year"
                   name="year"
                   placeholder="2023"
-                  value={formik.values.year}
-                  onChange={formik.handleChange}
+                  value={formData.year}
+                  onChange={(e) => {
+                    formik.handleChange(e);
+                    onInputChange(e as React.ChangeEvent<HTMLInputElement>);
+                  }}
                   onBlur={formik.handleBlur}
                   error={formik.touched.year && Boolean(formik.errors.year)}
                   helperText={formik.touched.year && formik.errors.year}
                   fullWidth
                 />
               </Grid>
-
-              <Grid
-                component="div"
-                sx={{
-                  flexGrow: 1,
-                }}
-              >
+              <Grid item xs={12} sm={6}>
                 <TextField
                   label="Color"
                   name="color"
-                  value={formik.values.color}
-                  onChange={formik.handleChange}
+                  value={formData.color}
+                  onChange={(e) => {
+                    formik.handleChange(e);
+                    onInputChange(e as React.ChangeEvent<HTMLInputElement>);
+                  }}
                   onBlur={formik.handleBlur}
                   error={formik.touched.color && Boolean(formik.errors.color)}
                   helperText={formik.touched.color && formik.errors.color}
                   fullWidth
                 />
               </Grid>
-
-              <Grid
-                component="div"
-                sx={{
-                  flexGrow: 1,
-                }}
-              >
+              <Grid item xs={12}>
                 <TextField
                   label="Image URL"
                   name="image"
                   placeholder="https://example.com/car.jpg"
-                  value={formik.values.image}
-                  onChange={formik.handleChange}
+                  value={formData.image}
+                  onChange={(e) => {
+                    formik.handleChange(e);
+                    onInputChange(e as React.ChangeEvent<HTMLInputElement>);
+                  }}
                   onBlur={formik.handleBlur}
                   error={formik.touched.image && Boolean(formik.errors.image)}
                   helperText={formik.touched.image && formik.errors.image}
                   fullWidth
                 />
               </Grid>
-
-              <Grid
-                component="div"
-                sx={{
-                  flexGrow: 1,
-                }}
-              >
+              <Grid item xs={12}>
                 <Button
                   type="submit"
                   variant="contained"
@@ -195,7 +171,6 @@ export const AddCarFormView: React.FC<AddCarFormViewProps> = ({ onAddCar, onSubm
         </Paper>
       </Box>
 
-      {/* Snackbar para exibir o alerta */}
       <Snackbar
         open={openSnackbar}
         autoHideDuration={3000}

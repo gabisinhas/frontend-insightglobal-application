@@ -83,6 +83,7 @@ body {
   transform: translateY(-4px);
   box-shadow: 0 12px 32px rgba(15, 23, 42, 0.12);
 }
+  justify-content: center;
 
 .grid-container {
   display: grid;
@@ -102,10 +103,12 @@ body {
   .grid-container {
     grid-template-columns: repeat(2, 1fr);
   }
+    justify-content: center;
 }
 
 @media (max-width: 640px) {
   .grid-container {
     grid-template-columns: 1fr;
   }
+    justify-content: center;
 }

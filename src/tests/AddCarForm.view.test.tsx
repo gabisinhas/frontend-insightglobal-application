@@ -16,12 +16,28 @@ const validCarData = {
 describe("AddCarFormView", () => {
   const mockOnAddCar = jest.fn();
 
+  const mockFormData = {
+    make: "",
+    model: "",
+    year: "",
+    color: "",
+    image: "",
+  };
+
+  const mockOnInputChange = jest.fn();
+
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   it("should render the form with all required fields and the title", () => {
-    render(<AddCarFormView onAddCar={mockOnAddCar} />);
+    render(
+      <AddCarFormView 
+        onAddCar={mockOnAddCar} 
+        formData={mockFormData} 
+        onInputChange={mockOnInputChange} 
+      />
+    );
 
     expect(screen.getByRole("heading", { level: 4, name: /register a new car/i })).toBeInTheDocument();
     expect(screen.getByText(/fill in the details below/i)).toBeInTheDocument();
@@ -36,7 +52,13 @@ describe("AddCarFormView", () => {
   });
 
   it("should call onAddCar with valid data on form submission and show success snackbar", async () => {
-    render(<AddCarFormView onAddCar={mockOnAddCar} />);
+    render(
+      <AddCarFormView 
+        onAddCar={mockOnAddCar} 
+        formData={mockFormData} 
+        onInputChange={mockOnInputChange} 
+      />
+    );
 
     await user.type(screen.getByLabelText(/make/i), validCarData.make);
     await user.type(screen.getByLabelText(/model/i), validCarData.model);
@@ -55,7 +77,13 @@ describe("AddCarFormView", () => {
   });
 
   it("should display validation errors for empty required fields on submission", async () => {
-    render(<AddCarFormView onAddCar={mockOnAddCar} />);
+    render(
+      <AddCarFormView 
+        onAddCar={mockOnAddCar} 
+        formData={mockFormData} 
+        onInputChange={mockOnInputChange} 
+      />
+    );
 
     await user.click(screen.getByRole("button", { name: /add car/i }));
 
@@ -71,7 +99,13 @@ describe("AddCarFormView", () => {
   });
 
   it("should display validation error for an invalid Year format", async () => {
-    render(<AddCarFormView onAddCar={mockOnAddCar} />);
+    render(
+      <AddCarFormView 
+        onAddCar={mockOnAddCar} 
+        formData={mockFormData} 
+        onInputChange={mockOnInputChange} 
+      />
+    );
 
     await user.type(screen.getByLabelText(/make/i), validCarData.make);
     await user.type(screen.getByLabelText(/model/i), validCarData.model);
@@ -89,7 +123,13 @@ describe("AddCarFormView", () => {
   });
 
   it("should display validation error for an invalid Image URL format", async () => {
-    render(<AddCarFormView onAddCar={mockOnAddCar} />);
+    render(
+      <AddCarFormView 
+        onAddCar={mockOnAddCar} 
+        formData={mockFormData} 
+        onInputChange={mockOnInputChange} 
+      />
+    );
 
     await user.type(screen.getByLabelText(/make/i), validCarData.make);
     await user.type(screen.getByLabelText(/model/i), validCarData.model);

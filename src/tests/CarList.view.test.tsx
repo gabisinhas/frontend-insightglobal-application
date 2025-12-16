@@ -1,4 +1,4 @@
-import { render, screen, waitFor, fireEvent } from "@testing-library/react";
+import { render, screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { CarListView } from "../../src/components/CarList/CarList.view";
 
