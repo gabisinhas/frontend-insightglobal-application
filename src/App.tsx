@@ -3,7 +3,7 @@ import {
   InMemoryCache,
   ApolloProvider,
 } from "@apollo/client";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { CarList } from "./components/CarList/CarList.controller";
 import { AddCarForm } from "./components/AddCarForm/AddCarForm.controller";
 import { Header } from "./components/Header/Header";
@@ -19,28 +19,26 @@ const client = new ApolloClient({
 export default function App() {
   return (
     <ApolloProvider client={client}>
-      <Router>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            minHeight: "100vh",
-          }}
-        >
-          <Header />
-          <Box sx={{ flexGrow: 1 }}>
-            <Routes>
-              <Route path="/" element={<CarList />} />
-              <Route
-                path="/add-car"
-                element={<AddCarForm onAddCar={() => {}} />}
-              />
-              <Route path="*" element={<CarList />} />
-            </Routes>
-          </Box>
-          <Footer />
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          minHeight: "100vh",
+        }}
+      >
+        <Header />
+        <Box sx={{ flexGrow: 1 }}>
+          <Routes>
+            <Route path="/" element={<CarList />} />
+            <Route
+              path="/add-car"
+              element={<AddCarForm onAddCar={() => {}} />}
+            />
+            <Route path="*" element={<CarList />} />
+          </Routes>
         </Box>
-      </Router>
+        <Footer />
+      </Box>
     </ApolloProvider>
   );
 }
