@@ -18,7 +18,7 @@ body {
   );
 
   color: #1241a0;
-  padding-top: 0; /* Removendo espaçamento extra para o header */
+  padding-top: 0;
 }
 
 #root {
@@ -83,7 +83,6 @@ body {
   transform: translateY(-4px);
   box-shadow: 0 12px 32px rgba(15, 23, 42, 0.12);
 }
-  justify-content: center;
 
 .grid-container {
   display: grid;

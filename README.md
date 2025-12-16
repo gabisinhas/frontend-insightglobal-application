@@ -16,52 +16,58 @@ This project is a modern web application built using React, TypeScript, and Vite
 
 ### Prerequisites
 
+
 Ensure you have the following installed:
 
 - Node.js (>= 16.x)
-- pnpm (preferred package manager)
+- npm (comes with Node.js)
 
 ### Installation
 
 1. Clone the repository:
    ```bash
    git clone <repository-url>
-   cd workspace
+   cd car-fleet
    ```
 
 2. Install dependencies:
    ```bash
-   pnpm install
+   npm install
    ```
 
 ### Running the Development Server
 
+
 Start the development server:
 ```bash
-pnpm dev
+npm run dev
 ```
+
 
 The application will be available at `http://localhost:5173`.
 
 ### Building for Production
 
+
 Build the application:
 ```bash
-pnpm build
+npm run build
 ```
+
 
 The production-ready files will be in the `dist/` directory.
 
 ### Running Tests
 
+
 - **Jest Tests**:
-  ```bash
-  pnpm test
-  ```
+   ```bash
+   npm test
+   ```
 - **Cypress Tests**:
-  ```bash
-  pnpm cypress:open
-  ```
+   ```bash
+   npm run cypress:open
+   ```
 
 ## Project Structure
 
