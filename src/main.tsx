@@ -11,9 +11,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-if (process.env.NODE_ENV === "development") {
-  makeServer();
-}
+makeServer();
 
 ReactDOM.createRoot(
   document.getElementById("root")!

@@ -13,7 +13,6 @@ const typeDefs = gql`
   }
 `;
 
-// Resolvers para os dados mockados
 const resolvers = {
   Query: {
     cars: () => [
@@ -23,7 +22,6 @@ const resolvers = {
   },
 };
 
-// Configuração do servidor Apollo para mocks
 export const server = new ApolloServer({
   typeDefs,
   resolvers,
