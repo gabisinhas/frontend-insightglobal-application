@@ -17,7 +17,7 @@ ReactDOM.createRoot(
   document.getElementById("root")!
 ).render(
   <ApolloProvider client={client}>
-    <BrowserRouter basename="/frontend-insightglobal-application">
+    <BrowserRouter>
       <App />
     </BrowserRouter>
   </ApolloProvider>
