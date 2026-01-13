@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
 export default defineConfig({
-  base: '/frontend-insightglobal-application/',
+  base: './',
   publicDir: 'public',
   plugins: [react()],
 });
